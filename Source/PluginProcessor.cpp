@@ -9,6 +9,8 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include "FlutterSetup.h"
+
 //==============================================================================
 JuceFlutterAudioProcessor::JuceFlutterAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -22,6 +24,7 @@ JuceFlutterAudioProcessor::JuceFlutterAudioProcessor()
                        )
 #endif
 {
+    JuceFlutter::setupFlutter();
 }
 
 JuceFlutterAudioProcessor::~JuceFlutterAudioProcessor()
