@@ -14,4 +14,6 @@ namespace JuceFlutter {
 
 void setupFlutter();
 
+void* flutterEngine;
+
 }

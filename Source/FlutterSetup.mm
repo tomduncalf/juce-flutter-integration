@@ -13,15 +13,15 @@
 @import UIKit;
 @import Flutter;
 
-@interface Flutter : NSObject
-@property (nonatomic,strong) FlutterEngine *flutterEngine;
-@end
+//@interface Flutter : NSObject
+//@property (nonatomic,strong) FlutterEngine *flutterEngine;
+//@end
 
 namespace JuceFlutter {
 
 void setupFlutter()
 {
-    
+    flutterEngine = [[FlutterEngine alloc] initWithName:@"my flutter engine"];
 }
 
 }
