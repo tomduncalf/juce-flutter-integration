@@ -9,6 +9,11 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include "FlutterSetup.h"
+
+@import UIKit;
+@import Flutter;
+
 //==============================================================================
 JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
@@ -16,6 +21,8 @@ JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAud
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (400, 300);
+    
+    startTimerHz (10);
 }
 
 JuceFlutterAudioProcessorEditor::~JuceFlutterAudioProcessorEditor()
@@ -37,4 +44,15 @@ void JuceFlutterAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+}
+
+void JuceFlutterAudioProcessorEditor::timerCallback()
+{
+    UIView *view = (UIView*)getWindowHandle();
+    if (view == nullptr) return;
+    
+    JuceFlutter::addFlutterToView (view);
+
+    stopTimer();
+    setup = true;
 }

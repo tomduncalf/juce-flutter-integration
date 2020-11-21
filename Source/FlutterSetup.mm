@@ -22,6 +22,17 @@ namespace JuceFlutter {
 void setupFlutter()
 {
     flutterEngine = [[FlutterEngine alloc] initWithName:@"my flutter engine"];
+    [flutterEngine run];
 }
 
+void addFlutterToView (void* view)
+{
+    FlutterViewController *flutterViewController =
+            [[FlutterViewController alloc] initWithEngine:(FlutterEngine*)flutterEngine nibName:nil bundle:nil];
+    [view addSubview: flutterViewController.view];
+//    [flutterViewController.view setBackgroundColor:[NSColor windowBackgroundColor]];
+    [flutterViewController.view setFrame:[view bounds]];
+//    [flutterViewController.view setAutoresizingMask:(NSViewMinXMargin | NSViewMinXMargin | NSViewMinYMargin | NSViewMaxYMargin | NSViewWidthSizable | NSViewHeightSizable)];
+
+}
 }

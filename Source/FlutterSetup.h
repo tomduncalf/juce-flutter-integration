@@ -13,6 +13,7 @@
 namespace JuceFlutter {
 
 void setupFlutter();
+void addFlutterToView (void* view);
 
 void* flutterEngine;
 

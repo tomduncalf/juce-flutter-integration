@@ -14,7 +14,8 @@
 //==============================================================================
 /**
 */
-class JuceFlutterAudioProcessorEditor  : public juce::AudioProcessorEditor
+class JuceFlutterAudioProcessorEditor  : public juce::AudioProcessorEditor,
+                                         private juce::Timer
 {
 public:
     JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor&);
@@ -28,6 +29,10 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     JuceFlutterAudioProcessor& audioProcessor;
+    
+    bool setup = false;
+    
+    void timerCallback() override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterAudioProcessorEditor)
 };
