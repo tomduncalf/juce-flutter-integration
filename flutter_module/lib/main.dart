@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'native_add.dart';
 
 void main() => runApp(MyApp());
 
@@ -90,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('1 + 2 == ${nativeAdd(1, 2)}'),
             Text(
               'You have pushed the button this many times:',
             ),

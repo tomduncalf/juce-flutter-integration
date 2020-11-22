@@ -9,6 +9,7 @@
 */
 
 #include "FlutterSetup.h"
+//#include <dart_api_dl.h>
 
 @import UIKit;
 @import Flutter;
@@ -36,3 +37,19 @@ void addFlutterToView (void* view)
 
 }
 }
+
+// for ios, dart/ffi won't be able to access 'extern "C" functions' without those attributes due to compiler optimizations
+#if defined(_WIN32)
+#define EXTERN_C extern "C" __declspec(dllexport)
+#else
+#define EXTERN_C extern "C" __attribute__((visibility("default"))) __attribute__((used))
+#endif
+
+EXTERN_C int32_t native_add(int32_t x, int32_t y) {
+    return x + y;
+};
+
+EXTERN_C int64_t InitializeDartApi(void *data)
+{
+  return Dart_InitializeApiDL(data);
+};
