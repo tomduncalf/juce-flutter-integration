@@ -10,10 +10,13 @@
 
 #pragma once
 
+#include <dart/dart_api_dl.h>
+
 namespace JuceFlutter {
 
 void setupFlutter();
 void addFlutterToView (void* view);
+void sendMsgToFlutter(int64_t msg);
 
 void* flutterEngine;
 

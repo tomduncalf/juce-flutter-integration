@@ -25,6 +25,7 @@ JuceFlutterAudioProcessor::JuceFlutterAudioProcessor()
 #endif
 {
     JuceFlutter::setupFlutter();
+    startTimerHz(60);
 }
 
 JuceFlutterAudioProcessor::~JuceFlutterAudioProcessor()
@@ -182,6 +183,11 @@ void JuceFlutterAudioProcessor::setStateInformation (const void* data, int sizeI
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+void JuceFlutterAudioProcessor::timerCallback()
+{
+    JuceFlutter::sendMsgToFlutter(random.nextInt(100));
 }
 
 //==============================================================================

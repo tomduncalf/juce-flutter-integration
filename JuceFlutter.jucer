@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="zPXZT4" name="JuceFlutter" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="../../../../flutter/flutter/bin/cache/dart-sdk/include/third_party/dart/">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="../../third_party"
+              pluginVSTCategory="kPlugCategSynth">
   <MAINGROUP id="r6ITGo" name="JuceFlutter">
+    <GROUP id="{D5DC07B7-DC40-ABF2-09A5-B07FFBFCCFE5}" name="Flutter Integration">
+      <FILE id="WSnXEL" name="dart_api_dl.c" compile="1" resource="0" file="third_party/dart/dart_api_dl.c"/>
+    </GROUP>
     <GROUP id="{39505F8D-E79B-4F59-2B93-B0B265E505B0}" name="Source">
       <FILE id="YnaSkf" name="FlutterSetup.h" compile="0" resource="0" file="Source/FlutterSetup.h"/>
       <FILE id="bcgFfV" name="FlutterSetup.mm" compile="1" resource="0" file="Source/FlutterSetup.mm"/>

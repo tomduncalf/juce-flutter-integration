@@ -13,7 +13,7 @@
 //==============================================================================
 /**
 */
-class JuceFlutterAudioProcessor  : public juce::AudioProcessor
+class JuceFlutterAudioProcessor  : public juce::AudioProcessor, public juce::Timer
 {
 public:
     //==============================================================================
@@ -52,6 +52,9 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    void timerCallback() override;
+    juce::Random random;
 
 private:
     //==============================================================================
