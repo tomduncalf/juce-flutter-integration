@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'native_add.dart';
+import 'counter.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,6 +48,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final _counterMobx = Counter();
 
   void _incrementCounter() {
     setState(() {
@@ -60,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    initialise();
+    // initialise();
 
     callbacks.add((value) {
       setState(() {
@@ -103,20 +107,26 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('1 + 2 == ${nativeAdd(1, 2)}'),
+            // Text('1 + 2 == ${nativeAdd(1, 2)}'),
             Text(
-              'You have pushed the button this many times:',
+              'You have pushed the non-mobx button this many times:',
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Observer(
+                builder: (_) => Text(
+                      '${_counterMobx.value}',
+                      style: const TextStyle(fontSize: 20),
+                    )),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        // onPressed: _incrementCounter,
+        onPressed: _counterMobx.increment,
+        tooltip: 'Increment mobx',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
