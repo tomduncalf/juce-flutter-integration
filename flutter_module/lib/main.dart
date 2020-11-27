@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_module/xml_to_state.dart';
 
 import 'native_add.dart';
 import 'counter.dart';
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     // initialise();
+    xmlToState();
 
     callbacks.add((value) {
       setState(() {

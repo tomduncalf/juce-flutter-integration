@@ -25,6 +25,7 @@ dependencies:
   mobx_codegen:
   build_runner:
   flutter_mobx:
+  xml:
   flutter:
     sdk: flutter
 
