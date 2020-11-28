@@ -7,34 +7,34 @@ part 'edit.g.dart';
 class Edit = EditBase with _$Edit;
 
 abstract class EditBase with Store {
-  EditBase(Observable<ValueTreeStateNode> s) {
+  EditBase(ValueTreeStateNode s) {
     state = s;
   }
 
   @computed
   String get appVersion {
-    return state.value.attributes['appVersion'];
+    return state.attributes['appVersion'];
   }
 
   @computed
   String get projectID {
-    return state.value.attributes['projectID'];
+    return state.attributes['projectID'];
   }
 
   @computed
   String get lastSignificantChange {
-    return state.value.attributes['lastSignificantChange'];
+    return state.attributes['lastSignificantChange'];
   }
 
   @computed
   List<Track> get tracks {
-    return state.value.children
+    return state.children
         .where((element) => element.name == 'TRACK')
-        .map((t) => Track(Observable(t)))
+        .map((t) => Track(t))
         .toList();
   }
 
-  Observable<ValueTreeStateNode> state;
+  ValueTreeStateNode state;
 
   String toString() {
     return '''

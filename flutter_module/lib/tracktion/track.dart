@@ -6,21 +6,21 @@ part 'track.g.dart';
 class Track = TrackBase with _$Track;
 
 abstract class TrackBase with Store {
-  TrackBase(Observable<ValueTreeStateNode> s) {
+  TrackBase(ValueTreeStateNode s) {
     state = s;
   }
 
   @computed
   double get midiVProp {
-    return double.parse(state.value.attributes['midiVProp']);
+    return double.parse(state.attributes['midiVProp']);
   }
 
   @computed
   double get midiVOffset {
-    return double.parse(state.value.attributes['midiVOffset']);
+    return double.parse(state.attributes['midiVOffset']);
   }
 
-  Observable<ValueTreeStateNode> state;
+  ValueTreeStateNode state;
 
   String toString() {
     return '''

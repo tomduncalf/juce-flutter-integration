@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   // final _counterMobx = Counter();
   Edit edit;
-  Observable<ValueTreeStateNode> state;
+  ValueTreeStateNode state;
 
   void _incrementCounter() {
     // setState(() {
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   _counter++;
     // });
     runInAction(() {
-      state.value.attributes['projectID'] = "Hello";
+      state.attributes['projectID'] = "Hello";
     });
     // print("yo");
   }

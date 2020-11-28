@@ -39,8 +39,8 @@ ValueTreeStateNode convertXmlNode(XmlElement xmlNode) {
   return result;
 }
 
-Observable<ValueTreeStateNode> xmlToState() {
+ValueTreeStateNode xmlToState() {
   var state = convertXmlNode(xml.rootElement);
   // print(state);
-  return Observable(state);
+  return state;
 }
