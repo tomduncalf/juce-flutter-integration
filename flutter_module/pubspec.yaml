@@ -22,8 +22,6 @@ environment:
 
 dependencies:
   mobx:
-  mobx_codegen:
-  build_runner:
   flutter_mobx:
   xml:
   flutter:
@@ -34,6 +32,8 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  mobx_codegen:
+  build_runner:
   flutter_test:
     sdk: flutter
 

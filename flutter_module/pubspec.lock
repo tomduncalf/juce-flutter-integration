@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.4.3"
   build_runner:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
@@ -299,7 +299,7 @@ packages:
     source: hosted
     version: "1.2.1+4"
   mobx_codegen:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: mobx_codegen
       url: "https://pub.dartlang.org"
