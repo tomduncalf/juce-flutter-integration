@@ -1,25 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter_module/tracktion/value_tree_state_node.dart';
+import 'package:mobx/mobx.dart';
 import 'package:xml/xml.dart';
 
 final file = new File(
     '/Users/td/Development/JuceFlutter/JuceFlutter/flutter_module/lib/tracktion.xml');
 final xml = XmlDocument.parse(file.readAsStringSync());
-
-class ValueTreeStateNode {
-  String name;
-  Map attributes = Map();
-  List<ValueTreeStateNode> children = List();
-
-  @override
-  String toString() {
-    return '''
-name: $name
-attributes: $attributes
-children: $children
-    ''';
-  }
-}
 
 void testState() {
   var node = ValueTreeStateNode();
@@ -43,7 +30,8 @@ void testState() {
 ValueTreeStateNode convertXmlNode(XmlElement xmlNode) {
   var result = ValueTreeStateNode();
   result.name = xmlNode.name.toString();
-  result.attributes = xmlNode.attributes.asMap();
+  result.attributes = Map.fromIterable(xmlNode.attributes,
+      key: (item) => item.name.toString(), value: (item) => item.value);
   result.children = xmlNode.children
       .where((e) => e is XmlElement)
       .map((e) => convertXmlNode(e))
@@ -51,8 +39,8 @@ ValueTreeStateNode convertXmlNode(XmlElement xmlNode) {
   return result;
 }
 
-ValueTreeStateNode xmlToState() {
+Observable<ValueTreeStateNode> xmlToState() {
   var state = convertXmlNode(xml.rootElement);
-  print(state);
-  return state;
+  // print(state);
+  return Observable(state);
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_module/xml_to_state.dart';
+import 'package:flutter_module/tracktion/edit.dart';
+import 'package:flutter_module/tracktion/value_tree_state_node.dart';
+import 'package:flutter_module/tracktion/xml_to_state.dart';
+import 'package:mobx/mobx.dart';
 
 import 'native_add.dart';
 import 'counter.dart';
@@ -49,24 +52,43 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  final _counterMobx = Counter();
+  // final _counterMobx = Counter();
+  Edit edit;
+  Observable<ValueTreeStateNode> state;
 
   void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+    // setState(() {
+    //   // This call to setState tells the Flutter framework that something has
+    //   // changed in this State, which causes it to rerun the build method below
+    //   // so that the display can reflect the updated values. If we changed
+    //   // _counter without calling setState(), then the build method would not be
+    //   // called again, and so nothing would appear to happen.
+    //   _counter++;
+    // });
+    runInAction(() {
+      state.value.attributes['projectID'] = "Hello";
     });
+    // print("yo");
   }
 
   @override
   void initState() {
     super.initState();
     // initialise();
-    xmlToState();
+    state = xmlToState();
+    edit = Edit(state);
+    print(edit);
+
+    // final counter = Observable(0);
+    // autorun((_) {
+    //   print("Counter is ${counter.value}");
+    // });
+    // runInAction(() {
+    //   counter.value++;
+    // });
+
+    // state.attributes['projectID'] = "Hello";
+    // print(e);
 
     callbacks.add((value) {
       setState(() {
@@ -119,15 +141,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Observer(
                 builder: (_) => Text(
-                      '${_counterMobx.value}',
+                      '${edit.projectID}',
                       style: const TextStyle(fontSize: 20),
                     )),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // onPressed: _incrementCounter,
-        onPressed: _counterMobx.increment,
+        onPressed: _incrementCounter,
+        // onPressed: _counterMobx.increment,
         tooltip: 'Increment mobx',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
