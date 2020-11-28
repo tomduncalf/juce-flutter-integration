@@ -8,34 +8,36 @@ final file = new File(
     '/Users/td/Development/JuceFlutter/JuceFlutter/flutter_module/lib/tracktion.xml');
 final xml = XmlDocument.parse(file.readAsStringSync());
 
-void testState() {
-  var node = ValueTreeStateNode();
-  node.name = "Test";
-  node.attributes = {'one': 'two', 'number': 4};
+// void testState() {
+//   var node = ValueTreeStateNode();
+//   node.name = "Test";
+//   node.attributes = {'one': 'two', 'number': 4};
 
-  var node2 = ValueTreeStateNode();
-  node2.name = "Test2";
-  node2.attributes = {'one': 2, 'number': 5};
+//   var node2 = ValueTreeStateNode();
+//   node2.name = "Test2";
+//   node2.attributes = {'one': 2, 'number': 5};
 
-  node.children.add(node2);
+//   node.children.add(node2);
 
-  var x = node.attributes['number'];
-  if (x is String) {
-    print("$x is a string");
-  } else if (x is int) {
-    print("$x is a int");
-  }
-}
+//   var x = node.attributes['number'];
+//   if (x is String) {
+//     print("$x is a string");
+//   } else if (x is int) {
+//     print("$x is a int");
+//   }
+// }
 
 ValueTreeStateNode convertXmlNode(XmlElement xmlNode) {
   var result = ValueTreeStateNode();
   result.name = xmlNode.name.toString();
-  result.attributes = Map.fromIterable(xmlNode.attributes,
-      key: (item) => item.name.toString(), value: (item) => item.value);
-  result.children = xmlNode.children
+
+  result.attributes = ObservableMap.of(Map.fromIterable(xmlNode.attributes,
+      key: (item) => item.name.toString(), value: (item) => item.value));
+
+  result.children = ObservableList.of(xmlNode.children
       .where((e) => e is XmlElement)
       .map((e) => convertXmlNode(e))
-      .toList();
+      .toList());
   return result;
 }
 

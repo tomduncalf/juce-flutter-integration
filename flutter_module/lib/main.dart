@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // });
     runInAction(() {
       state.attributes['projectID'] = "Hello";
+      print(state);
     });
     // print("yo");
   }
