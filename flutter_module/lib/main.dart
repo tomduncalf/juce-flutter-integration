@@ -66,7 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
     //   _counter++;
     // });
     runInAction(() {
-      state.attributes['projectID'] = "Hello";
+      state.children
+          .firstWhere((element) => element.name == 'TRACK')
+          .attributes['midiVOffset'] = '3';
       print(state);
     });
     // print("yo");
@@ -132,19 +134,18 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Text('1 + 2 == ${nativeAdd(1, 2)}'),
-            Text(
-              'You have pushed the non-mobx button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
             Observer(
-                builder: (_) => Text(
-                      '${edit.projectID}',
-                      style: const TextStyle(fontSize: 20),
-                    )),
+                // builder: (_) => Text(
+                //       '${edit.projectID}',
+                //       style: const TextStyle(fontSize: 20),
+                //     )),
+                builder: (_) => ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: edit.tracks.length,
+                    itemBuilder: (_, index) => Observer(
+                        builder: (_) =>
+                            Text(edit.tracks[index].midiVOffset.toString()))))
           ],
         ),
       ),
