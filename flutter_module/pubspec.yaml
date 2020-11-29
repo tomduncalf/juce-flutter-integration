@@ -34,6 +34,8 @@ dependencies:
 dev_dependencies:
   mobx_codegen:
   build_runner:
+  value_tree_sync_codegen:
+    path: ../dart_libs/value_tree_sync.dart/value_tree_sync_codegen
   flutter_test:
     sdk: flutter
 
