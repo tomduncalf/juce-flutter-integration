@@ -8,7 +8,7 @@ builders:
   value_tree_sync_generator:
     target: ':value_tree_sync_generator'
     import: 'package:value_tree_sync_codegen/builder.dart'
-    builder_factories: ['valueTreeSyncGenerator']
+    builder_factories: ['valueTreeSyncedGenerator']
     build_extensions: { '.dart': ['.value_tree_sync.g.part'] }
     auto_apply: dependents
     build_to: cache

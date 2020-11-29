@@ -19,10 +19,7 @@ class ValueTreeSyncedGenerator extends Generator {
     }
 
     final typeSystem = library.element.typeSystem;
-    final file = ValueTreeSyncedFileTemplate()
-      ..storeSources = [
-        "_generateCodeForLibrary(library, typeSystem).toSet();"
-      ];
+    final file = ValueTreeSyncedFileTemplate()..storeSources = [""];
 
     // ..storeSources = _generateCodeForLibrary(library, typeSystem).toSet();
     return file.toString();
