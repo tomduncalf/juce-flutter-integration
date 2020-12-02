@@ -64,22 +64,27 @@ class StoreClassVisitor extends SimpleElementVisitor {
 
   @override
   void visitFieldElement(FieldElement element) {
-    if (_valueTreeSyncedChecker.hasAnnotationOfExact(element)) {
-      _errors.invalidComputedAnnotations.addIf(true, element.name);
-      return;
-    }
+    // if (_valueTreeSyncedChecker.hasAnnotationOfExact(element)) {
+    //   _errors.invalidComputedAnnotations.addIf(true, element.name);
+    //   return;
+    // }
 
-    if (_fieldIsNotValid(element)) {
+    // if (_fieldIsNotValid(element)) {
+    //   return;
+    // }
+
+    if (!_valueTreeSyncedChecker.hasAnnotationOfExact(element)) {
       return;
     }
 
     final template = ValueTreeSyncedFieldTemplate()
       ..storeTemplate = _storeTemplate
+      // ..computedName = '_\$${element.name}Computed'
       ..type = typeNameFinder.findVariableTypeName(element)
       ..name = element.name
       ..isPrivate = element.isPrivate;
 
-    _storeTemplate.observables.add(template);
+    _storeTemplate.fields.add(template);
     return;
   }
 

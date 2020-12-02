@@ -8,8 +8,6 @@ class StoreClassCodegenErrors implements CodegenError {
     _errorCategories = [
       nonAbstractStoreMixinDeclarations,
       invalidComputedAnnotations,
-      invalidObservableAnnotations,
-      invalidActionAnnotations,
       staticObservables,
       staticMethods,
       finalObservables,
@@ -27,7 +25,7 @@ class StoreClassCodegenErrors implements CodegenError {
   final PropertyErrors staticObservables = StaticObservableFields();
 
   final PropertyErrors invalidComputedAnnotations =
-      InvalidComputedAnnotations();
+      InvalidValueTreeSyncedAnnotations();
 
   final PropertyErrors staticMethods = InvalidStaticMethods();
   final PropertyErrors asyncGeneratorActions = AsyncGeneratorActionMethods();
@@ -45,7 +43,7 @@ class StoreClassCodegenErrors implements CodegenError {
         .values
         .join('\n');
 
-    return 'Could not make class "$name" observable. Changes needed:\n$errors';
+    return 'Could not make class "$name" value tree synced. Changes needed:\n$errors';
   }
 
   @override
@@ -129,7 +127,7 @@ class NonAsyncMethods extends PropertyErrors {
       'Return a Future or a Stream from $property $propertyList.';
 }
 
-class InvalidComputedAnnotations extends PropertyErrors {
+class InvalidValueTreeSyncedAnnotations extends PropertyErrors {
   @override
   // ignore: overridden_fields
   Pluralize propertyPlural = _memberPluralizer;

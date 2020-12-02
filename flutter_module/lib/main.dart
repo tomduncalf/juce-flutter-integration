@@ -66,10 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
     //   _counter++;
     // });
     runInAction(() {
+      state.attributes['appVersion'] = "Test";
       state.children
           .firstWhere((element) => element.name == 'TRACK')
           .attributes['midiVOffset'] = '3';
-      print(state);
+      // print(state);
     });
     // print("yo");
   }
@@ -134,11 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Observer(builder: (_) => Text(edit.appVersion)),
             Observer(
-                // builder: (_) => Text(
-                //       '${edit.projectID}',
-                //       style: const TextStyle(fontSize: 20),
-                //     )),
                 builder: (_) => ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,

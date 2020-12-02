@@ -9,9 +9,9 @@ class ValueTreeSyncedFieldTemplate {
 
   @override
   // ignore: prefer_single_quotes
+  // $type $name;
   String toString() => """
-  $type $computedName;
-
   @override
-  $type get $name => return state.attributes['$name'];""";
+  @computed
+  $type get $name => state.attributes['$name'];""";
 }

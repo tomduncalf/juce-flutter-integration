@@ -1,33 +1,26 @@
 import 'package:flutter_module/tracktion/track.dart';
 import 'package:flutter_module/tracktion/value_tree_state_node.dart';
+import 'package:value_tree_sync/value_tree_sync.dart';
 import 'package:mobx/mobx.dart';
 
 part 'edit.g.dart';
 
-class Edit = EditBase with _$Edit;
+class Edit = EditBase with _$Edit, _$ValueTreeSyncedEdit;
 
-abstract class EditBase with Store {
+@StoreConfig(hasToString: false)
+abstract class EditBase with Store, ValueTreeSyncedStore {
   EditBase(ValueTreeStateNode s) {
     state = s;
   }
 
-  // @computed
-  // String get appVersion {
-  //   return state.attributes['appVersion'];
-  // }
-
   @valueTreeSynced
   String appVersion;
 
-  @computed
-  String get projectID {
-    return state.attributes['projectID'];
-  }
+  @valueTreeSynced
+  String projectID;
 
-  @computed
-  String get lastSignificantChange {
-    return state.attributes['lastSignificantChange'];
-  }
+  @valueTreeSynced
+  String lastSignificantChange;
 
   @computed
   List<Track> get tracks {

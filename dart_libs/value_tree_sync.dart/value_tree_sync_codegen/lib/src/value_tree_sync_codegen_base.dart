@@ -9,7 +9,7 @@ import 'package:build/build.dart';
 // import 'package:mobx_codegen/src/template/store.dart';
 // import 'package:mobx_codegen/src/type_names.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:value_tree_sync_codegen/src/class_visitor.dart';
+import 'package:value_tree_sync_codegen/src/store_class_visitor.dart';
 import 'package:value_tree_sync_codegen/src/template/store.dart';
 import 'package:value_tree_sync_codegen/src/template/value_tree_synced_file.dart';
 import 'package:value_tree_sync_codegen/src/type_names.dart';

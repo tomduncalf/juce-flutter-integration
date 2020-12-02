@@ -4,11 +4,11 @@ import 'package:value_tree_sync_codegen/src/template/rows.dart';
 import 'package:value_tree_sync_codegen/src/template/value_tree_synced_field.dart';
 
 class MixinStoreTemplate extends StoreTemplate {
-  String get typeName => '_\$$publicTypeName';
+  String get typeName => '_\$ValueTreeSynced$publicTypeName';
 
   @override
   String toString() => '''
-  mixin $typeName$typeParams on $parentTypeName$typeArgs, Store {
+  mixin $typeName$typeParams on $parentTypeName$typeArgs, ValueTreeSyncedStore {
     $storeBody
   }''';
 }
