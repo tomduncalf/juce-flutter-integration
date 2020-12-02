@@ -170,6 +170,12 @@
       "languageVersion": "2.4"
     },
     {
+      "name": "value_tree_sync",
+      "rootUri": "../../value_tree_sync",
+      "packageUri": "lib/",
+      "languageVersion": "2.10"
+    },
+    {
       "name": "watcher",
       "rootUri": "file:///Users/td/Development/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/watcher-0.9.7+15",
       "packageUri": "lib/",
@@ -188,7 +194,7 @@
       "languageVersion": "2.10"
     }
   ],
-  "generated": "2020-11-29T16:51:11.331330Z",
+  "generated": "2020-11-30T09:10:08.352801Z",
   "generator": "pub",
   "generatorVersion": "2.11.0-260.0.dev"
 }

@@ -1,0 +1,14 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "value_tree_sync",
+      "rootUri": "../",
+      "packageUri": "lib/",
+      "languageVersion": "2.10"
+    }
+  ],
+  "generated": "2020-11-29T17:47:01.845337Z",
+  "generator": "pub",
+  "generatorVersion": "2.11.0-260.0.dev"
+}

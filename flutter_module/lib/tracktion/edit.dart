@@ -11,10 +11,13 @@ abstract class EditBase with Store {
     state = s;
   }
 
-  @computed
-  String get appVersion {
-    return state.attributes['appVersion'];
-  }
+  // @computed
+  // String get appVersion {
+  //   return state.attributes['appVersion'];
+  // }
+
+  @valueTreeSynced
+  String appVersion;
 
   @computed
   String get projectID {
