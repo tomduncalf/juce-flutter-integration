@@ -2,8 +2,11 @@ This only works on iOS right now.
 
 # Setup:
 
-1. `cd flutter_module` (from the top level) and run `flutter build ios`, this creates some files that are needed for the integration
-2. `cd Builds/iOS` (from the top level) and run `pod install` to create an xcworkspace containing the required Flutter bits along with the JUCE code (depends on there being a symlink from `Builds/iOS/Podfile` to `Podfile`, so if you delete the `Builds` folder this will need recreating)
+1. Modify `iosBundleIdentifier` in `flutter_module/pubspec.yaml` to be something unique
+2. `cd flutter_module` (from the top level) and run `flutter build ios`, this will create some files that are needed for the integration, don't worry when it fails
+3. Open `JuceFlutter.jucer` and export for iOS, close Xcode if it opens
+4. `cd Builds/iOS` (from the top level) and create a symlink to the `Podfile`: `ln -s ../../Podfile` (you will need to do this any time you delete the Builds folder)
+5. Run `pod install` from `Builds/iOS` to create an `.xcworkspace` containing the required Flutter bits along with the JUCE code
 
 # Running:
 
