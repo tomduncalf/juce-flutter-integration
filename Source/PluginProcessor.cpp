@@ -187,7 +187,7 @@ void JuceFlutterAudioProcessor::setStateInformation (const void* data, int sizeI
 
 void JuceFlutterAudioProcessor::timerCallback()
 {
-    JuceFlutter::sendMsgToFlutter(random.nextInt(100));
+    JuceFlutter::sendMsgToFlutter (random.nextInt (100));
 }
 
 //==============================================================================
