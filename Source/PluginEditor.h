@@ -30,7 +30,7 @@ private:
     // access the processor object that created it.
     JuceFlutterAudioProcessor& audioProcessor;
     
-    bool setup = false;
+    bool setupComplete = false;
     
     void timerCallback() override;
 

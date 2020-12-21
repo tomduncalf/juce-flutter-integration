@@ -22,6 +22,8 @@ JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAud
     // editor's size to whatever you need it to be.
     setSize (400, 300);
     
+    // Start a timer to wait for our native view to be ready so that we can init Flutter,
+    // there must be a better way to do this  ithout a timer :)
     startTimerHz (10);
 }
 
@@ -54,5 +56,5 @@ void JuceFlutterAudioProcessorEditor::timerCallback()
     JuceFlutter::addFlutterToView (view);
 
     stopTimer();
-    setup = true;
+    setupComplete = true;
 }

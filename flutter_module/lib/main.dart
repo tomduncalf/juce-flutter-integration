@@ -6,7 +6,7 @@ import 'package:flutter_module/tracktion/value_tree_state_node.dart';
 import 'package:flutter_module/tracktion/xml_to_state.dart';
 import 'package:mobx/mobx.dart';
 
-import 'native_add.dart';
+import 'native_integration.dart';
 import 'counter.dart';
 
 void main() => runApp(MyApp());
@@ -82,6 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initialise();
+
+    nativeAdd(1, 2);
 
     state = xmlToState();
     edit = Edit(state);
