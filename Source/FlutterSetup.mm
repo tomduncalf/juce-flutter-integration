@@ -66,10 +66,43 @@ void sendMsgToFlutter(int64_t msg)
 {
   if (DartApiMessagePort == -1)
     return;
-  Dart_CObject obj;
-  obj.type = Dart_CObject_kInt64;
-  obj.value.as_int64 = msg;
-  Dart_PostCObject_DL(DartApiMessagePort, &obj);
+//  obj.type = Dart_CObject_kInt64;
+//  obj.value.as_int64 = msg;
+
+//    int[] values { 1, 2, 3, 4, 5 };
+//    Dart_CObject rv1, rv2, rv3;
+//    rv1.type = Dart_CObject_kInt64;
+//    rv1.value.as_int64 = 1;
+//    rv2.type = Dart_CObject_kInt64;
+//    rv2.value.as_int64 = 2;
+//    rv3.type = Dart_CObject_kInt64;
+//    rv3.value.as_int64 = 3;
+//    Dart_CObject *values[] = {&rv1, &rv2, &rv3};
+
+    int count = 20000;
+    Dart_CObject valueObjs[count];
+    Dart_CObject *values[count];
+    for (int i = 0; i < count; i++)
+    {
+        float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+        
+        Dart_CObject rv1;
+        rv1.type = Dart_CObject_kDouble;
+        rv1.value.as_double = r;
+        valueObjs[i] = rv1;
+        
+        values[i] = &valueObjs[i];
+    }
+    
+    Dart_CObject result;
+    result.type = Dart_CObject_kArray;
+    result.value.as_array.values = values;
+    result.value.as_array.length = count;
+//    Dart_PostCObject(reply_port_id, &result);
+    Dart_PostCObject_DL(DartApiMessagePort, &result);
+//    free(values);
+
+//    obj.type = kUint8Array
 }
 
 }

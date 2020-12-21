@@ -1,12 +1,14 @@
-import 'dart:io';
+// import 'dart:io';
 
+import 'package:flutter_module/tracktion/example_xml.dart';
 import 'package:flutter_module/tracktion/value_tree_state_node.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xml/xml.dart';
 
-final file = new File(
-    '/Users/td/Development/JuceFlutter/JuceFlutter/flutter_module/lib/tracktion.xml');
-final xml = XmlDocument.parse(file.readAsStringSync());
+// final file = new File(
+//     '/Users/td/Development/JuceFlutter/JuceFlutter/flutter_module/lib/tracktion.xml');
+// final xml = XmlDocument.parse(file.readAsStringSync());
+final xml = XmlDocument.parse(exampleXml);
 
 // void testState() {
 //   var node = ValueTreeStateNode();

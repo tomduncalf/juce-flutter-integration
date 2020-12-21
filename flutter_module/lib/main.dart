@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_module/painter.dart';
 import 'package:flutter_module/tracktion/edit.dart';
 import 'package:flutter_module/tracktion/value_tree_state_node.dart';
 import 'package:flutter_module/tracktion/xml_to_state.dart';
@@ -52,6 +53,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<double> points = [0];
+
   // final _counterMobx = Counter();
   Edit edit;
   ValueTreeStateNode state;
@@ -78,7 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // initialise();
+    initialise();
+
     state = xmlToState();
     edit = Edit(state);
     print(edit);
@@ -94,65 +98,77 @@ class _MyHomePageState extends State<MyHomePage> {
     // state.attributes['projectID'] = "Hello";
     // print(e);
 
-    callbacks.add((value) {
+    nativeCallbacks.add((value) {
       setState(() {
-        _counter = value;
+        points = value.cast<double>();
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Drawing Paths',
+      home: Container(
+        color: Colors.white,
+        child: CustomPaint(painter: Painter(points)),
+      ),
+    );
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Observer(builder: (_) => Text(edit.appVersion)),
-            Observer(
-                builder: (_) => ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: edit.tracks.length,
-                    itemBuilder: (_, index) => Observer(
-                        builder: (_) =>
-                            Text(edit.tracks[index].midiVOffset.toString()))))
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        // onPressed: _counterMobx.increment,
-        tooltip: 'Increment mobx',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     // Here we take the value from the MyHomePage object that was created by
+    //     // the App.build method, and use it to set our appbar title.
+    //     title: Text(widget.title),
+    //   ),
+    //   body: Center(
+    //     // Center is a layout widget. It takes a single child and positions it
+    //     // in the middle of the parent.
+    //     child: Column(
+    //       // Column is also a layout widget. It takes a list of children and
+    //       // arranges them vertically. By default, it sizes itself to fit its
+    //       // children horizontally, and tries to be as tall as its parent.
+    //       //
+    //       // Invoke "debug painting" (press "p" in the console, choose the
+    //       // "Toggle Debug Paint" action from the Flutter Inspector in Android
+    //       // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+    //       // to see the wireframe for each widget.
+    //       //
+    //       // Column has various properties to control how it sizes itself and
+    //       // how it positions its children. Here we use mainAxisAlignment to
+    //       // center the children vertically; the main axis here is the vertical
+    //       // axis because Columns are vertical (the cross axis would be
+    //       // horizontal).
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: <Widget>[
+    //         CustomPaint(
+    //           painter: Painter(points),
+    //         ),
+    //         // Text(points[0].toString()),
+    //         // Observer(builder: (_) => Text(edit.appVersion)),
+    //         // Observer(
+    //         //     builder: (_) => ListView.builder(
+    //         //         scrollDirection: Axis.vertical,
+    //         //         shrinkWrap: true,
+    //         //         itemCount: edit.tracks.length,
+    //         //         itemBuilder: (_, index) => Observer(
+    //         //             builder: (_) =>
+    //         //                 Text(edit.tracks[index].midiVOffset.toString()))))
+    //       ],
+    //     ),
+    //   ),
+    //   floatingActionButton: FloatingActionButton(
+    //     onPressed: _incrementCounter,
+    //     // onPressed: _counterMobx.increment,
+    //     tooltip: 'Increment mobx',
+    //     child: Icon(Icons.add),
+    //   ), // This trailing comma makes auto-formatting nicer for build methods.
+    // );
   }
 }

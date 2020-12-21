@@ -2,8 +2,8 @@ import 'dart:ffi'; // For FFI
 import 'dart:io'; // For Platform.isX
 import 'dart:isolate';
 
-typedef void Callback(int x);
-var callbacks = List<Callback>();
+typedef void Callback(List<dynamic> x);
+var nativeCallbacks = List<Callback>();
 
 final DynamicLibrary nativeAddLib = Platform.isAndroid
     ? DynamicLibrary.open("libnative_add.so")
@@ -26,8 +26,8 @@ void initialise() {
 
   final interactiveCppRequests = ReceivePort()
     ..listen((data) {
-      print('Received: ${data} from Go');
-      callbacks.forEach((element) {
+      // print('Received: ${data} from Go');
+      nativeCallbacks.forEach((element) {
         element(data);
       });
     });

@@ -46,7 +46,8 @@
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" customXcodeFlags="VALID_ARCHS=arm64"
                        libraryPath="$(PODS_CONFIGURATION_BUILD_DIR)"/>
-        <CONFIGURATION isDebug="0" name="Release"/>
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="$(PODS_CONFIGURATION_BUILD_DIR)"
+                       customXcodeFlags="VALID_ARCHS=arm64"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra"/>

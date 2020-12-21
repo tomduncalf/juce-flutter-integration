@@ -18,6 +18,6 @@ void setupFlutter();
 void addFlutterToView (void* view);
 void sendMsgToFlutter(int64_t msg);
 
-void* flutterEngine;
+static void* flutterEngine;
 
 }
