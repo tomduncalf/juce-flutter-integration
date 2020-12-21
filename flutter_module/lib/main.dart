@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_module/painter.dart';
-import 'package:flutter_module/tracktion/edit.dart';
-import 'package:flutter_module/tracktion/value_tree_state_node.dart';
-import 'package:flutter_module/tracktion/xml_to_state.dart';
-import 'package:mobx/mobx.dart';
 
 import 'native_integration.dart';
-import 'counter.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,54 +46,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   List<double> points = [0];
-
-  // final _counterMobx = Counter();
-  Edit edit;
-  ValueTreeStateNode state;
-
-  void _incrementCounter() {
-    // setState(() {
-    //   // This call to setState tells the Flutter framework that something has
-    //   // changed in this State, which causes it to rerun the build method below
-    //   // so that the display can reflect the updated values. If we changed
-    //   // _counter without calling setState(), then the build method would not be
-    //   // called again, and so nothing would appear to happen.
-    //   _counter++;
-    // });
-    runInAction(() {
-      state.attributes['appVersion'] = "Test";
-      state.children
-          .firstWhere((element) => element.name == 'TRACK')
-          .attributes['midiVOffset'] = '3';
-      // print(state);
-    });
-    // print("yo");
-  }
 
   @override
   void initState() {
     super.initState();
-    initialise();
 
+    initialiseNativeIntegration();
+
+    // Example calling into C++ from Flutter
     nativeAdd(1, 2);
 
-    state = xmlToState();
-    edit = Edit(state);
-    print(edit);
-
-    // final counter = Observable(0);
-    // autorun((_) {
-    //   print("Counter is ${counter.value}");
-    // });
-    // runInAction(() {
-    //   counter.value++;
-    // });
-
-    // state.attributes['projectID'] = "Hello";
-    // print(e);
-
+    // Register a callback to be called when we receive a message from C++, in this
+    // case updating our app's state with the values. In our JUCE/React Native integration,
+    // we don't do much of this manually as we store all the state in a ValueTree which
+    // is then synchronised automatically with a Javascript representation of it... so I'm
+    // looking at doing something similar here, its much less error prone than manual state syncing
     nativeCallbacks.add((value) {
       setState(() {
         points = value.cast<double>();
@@ -116,61 +78,5 @@ class _MyHomePageState extends State<MyHomePage> {
         child: CustomPaint(painter: Painter(points)),
       ),
     );
-
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     // Here we take the value from the MyHomePage object that was created by
-    //     // the App.build method, and use it to set our appbar title.
-    //     title: Text(widget.title),
-    //   ),
-    //   body: Center(
-    //     // Center is a layout widget. It takes a single child and positions it
-    //     // in the middle of the parent.
-    //     child: Column(
-    //       // Column is also a layout widget. It takes a list of children and
-    //       // arranges them vertically. By default, it sizes itself to fit its
-    //       // children horizontally, and tries to be as tall as its parent.
-    //       //
-    //       // Invoke "debug painting" (press "p" in the console, choose the
-    //       // "Toggle Debug Paint" action from the Flutter Inspector in Android
-    //       // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-    //       // to see the wireframe for each widget.
-    //       //
-    //       // Column has various properties to control how it sizes itself and
-    //       // how it positions its children. Here we use mainAxisAlignment to
-    //       // center the children vertically; the main axis here is the vertical
-    //       // axis because Columns are vertical (the cross axis would be
-    //       // horizontal).
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //         CustomPaint(
-    //           painter: Painter(points),
-    //         ),
-    //         // Text(points[0].toString()),
-    //         // Observer(builder: (_) => Text(edit.appVersion)),
-    //         // Observer(
-    //         //     builder: (_) => ListView.builder(
-    //         //         scrollDirection: Axis.vertical,
-    //         //         shrinkWrap: true,
-    //         //         itemCount: edit.tracks.length,
-    //         //         itemBuilder: (_, index) => Observer(
-    //         //             builder: (_) =>
-    //         //                 Text(edit.tracks[index].midiVOffset.toString()))))
-    //       ],
-    //     ),
-    //   ),
-    //   floatingActionButton: FloatingActionButton(
-    //     onPressed: _incrementCounter,
-    //     // onPressed: _counterMobx.increment,
-    //     tooltip: 'Increment mobx',
-    //     child: Icon(Icons.add),
-    //   ), // This trailing comma makes auto-formatting nicer for build methods.
-    // );
   }
 }

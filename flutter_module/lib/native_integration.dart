@@ -19,7 +19,7 @@ final int Function(int x, int y) nativeAdd = nativeLib
     .asFunction();
 
 // Setup the connection between Dart and C++
-void initialise() {
+void initialiseNativeIntegration() {
   final lib = DynamicLibrary.process();
 
   // This is some boilerplate to setup the FFI
