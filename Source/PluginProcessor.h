@@ -15,12 +15,12 @@
 //==============================================================================
 /**
 */
-class JuceFlutterV2AudioProcessor  : public juce::AudioProcessor
+class JuceFlutterAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
-    JuceFlutterV2AudioProcessor();
-    ~JuceFlutterV2AudioProcessor() override;
+    JuceFlutterAudioProcessor();
+    ~JuceFlutterAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -57,7 +57,7 @@ public:
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterV2AudioProcessor)
-    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterAudioProcessor)
+
     FlutterIntegration flutter;
 };

@@ -10,7 +10,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-JuceFlutterV2AudioProcessor::JuceFlutterV2AudioProcessor()
+JuceFlutterAudioProcessor::JuceFlutterAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -24,17 +24,17 @@ JuceFlutterV2AudioProcessor::JuceFlutterV2AudioProcessor()
 {
 }
 
-JuceFlutterV2AudioProcessor::~JuceFlutterV2AudioProcessor()
+JuceFlutterAudioProcessor::~JuceFlutterAudioProcessor()
 {
 }
 
 //==============================================================================
-const juce::String JuceFlutterV2AudioProcessor::getName() const
+const juce::String JuceFlutterAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool JuceFlutterV2AudioProcessor::acceptsMidi() const
+bool JuceFlutterAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -43,7 +43,7 @@ bool JuceFlutterV2AudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool JuceFlutterV2AudioProcessor::producesMidi() const
+bool JuceFlutterAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -52,7 +52,7 @@ bool JuceFlutterV2AudioProcessor::producesMidi() const
    #endif
 }
 
-bool JuceFlutterV2AudioProcessor::isMidiEffect() const
+bool JuceFlutterAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -61,50 +61,50 @@ bool JuceFlutterV2AudioProcessor::isMidiEffect() const
    #endif
 }
 
-double JuceFlutterV2AudioProcessor::getTailLengthSeconds() const
+double JuceFlutterAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int JuceFlutterV2AudioProcessor::getNumPrograms()
+int JuceFlutterAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int JuceFlutterV2AudioProcessor::getCurrentProgram()
+int JuceFlutterAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void JuceFlutterV2AudioProcessor::setCurrentProgram (int index)
+void JuceFlutterAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const juce::String JuceFlutterV2AudioProcessor::getProgramName (int index)
+const juce::String JuceFlutterAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void JuceFlutterV2AudioProcessor::changeProgramName (int index, const juce::String& newName)
+void JuceFlutterAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
-void JuceFlutterV2AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void JuceFlutterAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void JuceFlutterV2AudioProcessor::releaseResources()
+void JuceFlutterAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool JuceFlutterV2AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool JuceFlutterAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -129,7 +129,7 @@ bool JuceFlutterV2AudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 }
 #endif
 
-void JuceFlutterV2AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void JuceFlutterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -159,25 +159,25 @@ void JuceFlutterV2AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 }
 
 //==============================================================================
-bool JuceFlutterV2AudioProcessor::hasEditor() const
+bool JuceFlutterAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* JuceFlutterV2AudioProcessor::createEditor()
+juce::AudioProcessorEditor* JuceFlutterAudioProcessor::createEditor()
 {
-    return new JuceFlutterV2AudioProcessorEditor (*this);
+    return new JuceFlutterAudioProcessorEditor (*this, flutter);
 }
 
 //==============================================================================
-void JuceFlutterV2AudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void JuceFlutterAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void JuceFlutterV2AudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void JuceFlutterAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -187,5 +187,5 @@ void JuceFlutterV2AudioProcessor::setStateInformation (const void* data, int siz
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new JuceFlutterV2AudioProcessor();
+    return new JuceFlutterAudioProcessor();
 }

@@ -11,14 +11,16 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
+#include "FlutterIntegration/FlutterIntegration.h"
+
 //==============================================================================
 /**
 */
-class JuceFlutterV2AudioProcessorEditor  : public juce::AudioProcessorEditor
+class JuceFlutterAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    JuceFlutterV2AudioProcessorEditor (JuceFlutterV2AudioProcessor&);
-    ~JuceFlutterV2AudioProcessorEditor() override;
+    JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor&, FlutterIntegration&);
+    ~JuceFlutterAudioProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -27,7 +29,11 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    JuceFlutterV2AudioProcessor& audioProcessor;
+    JuceFlutterAudioProcessor& audioProcessor;
+    
+    FlutterIntegration& flutter;
+    
+    bool flutterSetupComplete = false;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterV2AudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterAudioProcessorEditor)
 };
