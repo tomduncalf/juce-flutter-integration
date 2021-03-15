@@ -9,12 +9,16 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include <juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h>
+
 //==============================================================================
 JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor& p, FlutterIntegration& f)
     : AudioProcessorEditor (&p), audioProcessor (p), flutter (f)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+    // To use this in standalone plugin build, change line 82 of juce_StandaloneFilterApp.cpp
+    // from `LookAndFeel::getDefaultLookAndFeel().findColour (ResizableWindow::backgroundColourId),`
+    // to `juce::Colours::transparentWhite,`, so that we can see the Flutter UI under the JUCE UI.
+    // TODO Maybe there is a better way to achieve this!
     setSize (400, 300);
     setResizeLimits (100, 100, 1000, 1000);
     setResizable (true, true);
@@ -27,8 +31,6 @@ JuceFlutterAudioProcessorEditor::~JuceFlutterAudioProcessorEditor()
 //==============================================================================
 void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colours::transparentWhite);
-
     if (flutterSetupComplete) return;
 
     flutter.setupFlutterView (getWindowHandle());
@@ -38,10 +40,4 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 void JuceFlutterAudioProcessorEditor::resized()
 {
     flutter.resize (getWindowHandle());
-}
-
-void JuceFlutterAudioProcessorEditor::timerCallback()
-{
-    setSize (500, 500);
-    stopTimer();
 }

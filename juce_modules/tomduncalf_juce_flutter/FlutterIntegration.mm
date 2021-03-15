@@ -25,7 +25,8 @@ void FlutterIntegration::setupFlutterView (void* windowHandle)
 #endif
     
     flutterViewController = [FlutterViewController new];
-    [nativeView setAlphaValue: 0.5];
+    // Place the Flutter view below the (transparent) JUCE component view
+    // so that we can use the JUCE corner resizer widget
     [[nativeView superview] addSubview: ((FlutterViewController*) flutterViewController).view
                             positioned: NSWindowBelow relativeTo: nil];
     [((FlutterViewController*) flutterViewController).view setFrame: [nativeView bounds]];
@@ -33,6 +34,9 @@ void FlutterIntegration::setupFlutterView (void* windowHandle)
 
 void FlutterIntegration::resize (void* windowHandle)
 {
+    // Sometimes this gets called before we are ready
+    if (windowHandle == nullptr) return;
+    
 #if JUCE_IOS
     UIView *nativeView = (UIView*) windowHandle;
 #else
