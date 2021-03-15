@@ -14,4 +14,8 @@ class FlutterIntegration
 {
 public:
     void setupFlutterView (void* nativeView);
+    void resize (void* nativeView);
+    
+private:
+    void* flutterViewController;
 };

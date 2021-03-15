@@ -24,7 +24,18 @@ void FlutterIntegration::setupFlutterView (void* windowHandle)
     NSView *nativeView = (NSView*) windowHandle;
 #endif
     
-    FlutterViewController *flutterViewController = [FlutterViewController new];
-    [nativeView addSubview: flutterViewController.view];
-    [flutterViewController.view setFrame: [nativeView bounds]];
+    flutterViewController = [FlutterViewController new];
+    [nativeView addSubview: ((FlutterViewController*) flutterViewController).view];
+    [((FlutterViewController*) flutterViewController).view setFrame: [nativeView bounds]];
+}
+
+void FlutterIntegration::resize (void* windowHandle)
+{
+#if JUCE_IOS
+    UIView *nativeView = (UIView*) windowHandle;
+#else
+    NSView *nativeView = (NSView*) windowHandle;
+#endif
+    
+    [((FlutterViewController*) flutterViewController).view setFrame: [nativeView bounds]];
 }
