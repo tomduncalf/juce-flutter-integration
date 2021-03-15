@@ -3,6 +3,14 @@
 <JUCERPROJECT id="llTvWn" name="JuceFlutterV2" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="YPCu5T" name="JuceFlutterV2">
+    <GROUP id="{AB41ECF8-B7CE-A3D0-3DCA-F3ACF533DBA1}" name="FlutterIntegration">
+      <FILE id="KVg7jM" name="FlutterIntegration.cpp" compile="1" resource="0"
+            file="Source/FlutterIntegration/FlutterIntegration.cpp"/>
+      <FILE id="FtAiDX" name="FlutterIntegration.h" compile="0" resource="0"
+            file="Source/FlutterIntegration/FlutterIntegration.h"/>
+      <FILE id="Ag5bad" name="FlutterIntegration.mm" compile="0" resource="0"
+            file="Source/FlutterIntegration/FlutterIntegration.mm"/>
+    </GROUP>
     <GROUP id="{6683E6E9-592D-9B61-EB56-FE865FFC8D21}" name="Source">
       <FILE id="GXs3om" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -35,7 +43,10 @@
         <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-fmodules -fcxx-modules -Wno-modules-import-nested-redundant "
+               customXcodeResourceFolders="flutter_project/build/macos/Build/Products/Debug/App.framework/Versions/A/Resources/flutter_assets"
+               frameworkSearchPaths="../../flutter_project/build/macos/Build/Products/Debug"
+               embeddedFrameworks="../../flutter_project/build/macos/Build/Products/Debug/App.framework&#10;../../flutter_project/build/macos/Build/Products/Debug/FlutterMacOS.framework">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="JuceFlutterV2"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="JuceFlutterV2"/>
@@ -71,4 +82,7 @@
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>
