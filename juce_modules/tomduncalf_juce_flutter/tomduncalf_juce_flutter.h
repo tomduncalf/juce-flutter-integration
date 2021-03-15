@@ -27,6 +27,8 @@ END_JUCE_MODULE_DECLARATION
  #define JUCE_CORE_INCLUDE_OBJC_HELPERS 1
 #endif
 
+#include <JuceHeader.h>
+
 #include "FlutterIntegration.h"
 
 //==============================================================================

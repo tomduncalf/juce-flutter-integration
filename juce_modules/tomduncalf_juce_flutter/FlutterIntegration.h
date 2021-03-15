@@ -13,9 +13,13 @@
 class FlutterIntegration
 {
 public:
+    FlutterIntegration();
+    ~FlutterIntegration();
+    
     void setupFlutterView (void* nativeView);
-    void resize (void* nativeView);
+    void resize ();
     
 private:
-    void* flutterViewController;
+    class Pimpl;
+    std::unique_ptr<Pimpl> pimpl;
 };

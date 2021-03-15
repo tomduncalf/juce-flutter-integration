@@ -39,5 +39,5 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 
 void JuceFlutterAudioProcessorEditor::resized()
 {
-    flutter.resize (getWindowHandle());
+    flutter.resize();
 }

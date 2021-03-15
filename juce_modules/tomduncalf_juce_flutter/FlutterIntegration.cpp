@@ -8,5 +8,16 @@
   ==============================================================================
 */
 
-#include "FlutterIntegration.h"
+FlutterIntegration::FlutterIntegration() : pimpl (std::make_unique<Pimpl> ()) { }
 
+FlutterIntegration::~FlutterIntegration() = default;
+
+void FlutterIntegration::setupFlutterView (void* nativeView)
+{
+    pimpl->setupFlutterView (nativeView);
+}
+
+void FlutterIntegration::resize()
+{
+    pimpl->resize();
+}
