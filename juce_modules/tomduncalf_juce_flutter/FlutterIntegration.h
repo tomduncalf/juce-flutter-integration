@@ -13,5 +13,5 @@
 class FlutterIntegration
 {
 public:
-    void setup (void* nativeView);
+    void setupFlutterView (void* nativeView);
 };

@@ -16,9 +16,15 @@
  @import FlutterMacOS;
 #endif
 
-void FlutterIntegration::setup (void* nativeView)
+void FlutterIntegration::setupFlutterView (void* windowHandle)
 {
+#if JUCE_IOS
+    UIView *nativeView = (UIView*) windowHandle;
+#else
+    NSView *nativeView = (NSView*) windowHandle;
+#endif
+    
     FlutterViewController *flutterViewController = [FlutterViewController new];
     [nativeView addSubview: flutterViewController.view];
-    [flutterViewController.view setFrame:[view bounds]];
+    [flutterViewController.view setFrame: [nativeView bounds]];
 }

@@ -27,13 +27,7 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 {
     if (flutterSetupComplete) return;
     
-#if JUCE_IOS
-    UIView *view = (UIView*)getWindowHandle();
-#else
-    NSView *view = (NSView*)getWindowHandle();
-#endif
-    
-    flutter.setup (view);
+    flutter.setupFlutterView (getWindowHandle());
     flutterSetupComplete = true;
 }
 

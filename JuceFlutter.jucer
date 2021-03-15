@@ -3,14 +3,6 @@
 <JUCERPROJECT id="llTvWn" name="JuceFlutter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="YPCu5T" name="JuceFlutter">
-    <GROUP id="{AB41ECF8-B7CE-A3D0-3DCA-F3ACF533DBA1}" name="FlutterIntegration">
-      <FILE id="KVg7jM" name="FlutterIntegration.cpp" compile="1" resource="0"
-            file="Source/FlutterIntegration/FlutterIntegration.cpp"/>
-      <FILE id="FtAiDX" name="FlutterIntegration.h" compile="0" resource="0"
-            file="Source/FlutterIntegration/FlutterIntegration.h"/>
-      <FILE id="Ag5bad" name="FlutterIntegration.mm" compile="0" resource="0"
-            file="Source/FlutterIntegration/FlutterIntegration.mm"/>
-    </GROUP>
     <GROUP id="{6683E6E9-592D-9B61-EB56-FE865FFC8D21}" name="Source">
       <FILE id="GXs3om" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -41,6 +33,7 @@
         <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="tomduncalf_juce_flutter" path="juce_modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-fmodules -fcxx-modules -Wno-modules-import-nested-redundant "
@@ -64,6 +57,7 @@
         <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="tomduncalf_juce_flutter" path="juce_modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -81,6 +75,8 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="tomduncalf_juce_flutter" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <OSX/>

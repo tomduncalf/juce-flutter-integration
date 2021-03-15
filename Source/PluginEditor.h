@@ -11,7 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-#include "FlutterIntegration/FlutterIntegration.h"
+#include <tomduncalf_juce_flutter/FlutterIntegration.h>
 
 //==============================================================================
 /**
