@@ -10,7 +10,7 @@
 
 #include "FlutterIntegration.h"
 
-#if TARGET_OS_IOS
+#if JUCE_IOS
  @import Flutter;
 #else
  @import FlutterMacOS;

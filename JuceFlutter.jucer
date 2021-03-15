@@ -41,7 +41,7 @@
                frameworkSearchPaths="../../flutter_project/build/macos/Build/Products/Debug"
                embeddedFrameworks="../../flutter_project/build/macos/Build/Products/Debug/App.framework&#10;../../flutter_project/build/macos/Build/Products/Debug/FlutterMacOS.framework">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="JuceFlutter"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="JuceFlutter" customXcodeFlags="LD_RUNPATH_SEARCH_PATHS=&quot;$(inherited) $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/$(PROJECT_NAME).component/Contents/Frameworks/&quot;"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="JuceFlutter"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
