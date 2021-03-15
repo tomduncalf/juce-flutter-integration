@@ -25,7 +25,9 @@ void FlutterIntegration::setupFlutterView (void* windowHandle)
 #endif
     
     flutterViewController = [FlutterViewController new];
-    [nativeView addSubview: ((FlutterViewController*) flutterViewController).view];
+    [nativeView setAlphaValue: 0.5];
+    [[nativeView superview] addSubview: ((FlutterViewController*) flutterViewController).view
+                            positioned: NSWindowBelow relativeTo: nil];
     [((FlutterViewController*) flutterViewController).view setFrame: [nativeView bounds]];
 }
 

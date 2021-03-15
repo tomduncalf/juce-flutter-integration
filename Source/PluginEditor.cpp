@@ -18,8 +18,6 @@ JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAud
     setSize (400, 300);
     setResizeLimits (100, 100, 1000, 1000);
     setResizable (true, true);
-    
-    startTimer (5000);
 }
 
 JuceFlutterAudioProcessorEditor::~JuceFlutterAudioProcessorEditor()
@@ -29,6 +27,8 @@ JuceFlutterAudioProcessorEditor::~JuceFlutterAudioProcessorEditor()
 //==============================================================================
 void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 {
+    g.fillAll (juce::Colours::transparentWhite);
+
     if (flutterSetupComplete) return;
 
     flutter.setupFlutterView (getWindowHandle());
@@ -37,8 +37,6 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 
 void JuceFlutterAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
     flutter.resize (getWindowHandle());
 }
 
