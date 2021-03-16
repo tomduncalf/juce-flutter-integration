@@ -3,6 +3,9 @@
 <JUCERPROJECT id="llTvWn" name="JuceFlutter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="YPCu5T" name="JuceFlutter">
+    <GROUP id="{AB41ECF8-B7CE-A3D0-3DCA-F3ACF533DBA1}" name="Dart SDK">
+      <FILE id="Bt3TWm" name="dart_api_dl.c" compile="1" resource="0" file="libs/dart/dart_api_dl.c"/>
+    </GROUP>
     <GROUP id="{6683E6E9-592D-9B61-EB56-FE865FFC8D21}" name="Source">
       <FILE id="GXs3om" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

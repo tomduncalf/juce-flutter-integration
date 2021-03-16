@@ -16,7 +16,8 @@
 //==============================================================================
 /**
 */
-class JuceFlutterAudioProcessorEditor  : public juce::AudioProcessorEditor
+class JuceFlutterAudioProcessorEditor  : public juce::AudioProcessorEditor,
+public juce::Timer
 {
 public:
     JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor&, FlutterIntegration&);
@@ -34,6 +35,9 @@ private:
     FlutterIntegration& flutter;
     
     bool flutterSetupComplete = false;
+    
+    void timerCallback() override;
+    juce::Random r;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterAudioProcessorEditor)
 };

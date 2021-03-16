@@ -35,9 +35,16 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 
     flutter.setupFlutterView (getWindowHandle());
     flutterSetupComplete = true;
+    
+    startTimerHz (1);
 }
 
 void JuceFlutterAudioProcessorEditor::resized()
 {
     flutter.resize();
+}
+
+void JuceFlutterAudioProcessorEditor::timerCallback()
+{
+    flutter.sendMsgToFlutter (r.nextInt(100));
 }

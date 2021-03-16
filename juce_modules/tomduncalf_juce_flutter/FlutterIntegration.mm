@@ -28,7 +28,7 @@ public:
         flutterViewController = [FlutterViewController new];
         // Place the Flutter view below the (transparent) JUCE component view
         // so that we can use the JUCE corner resizer widget
-        [[nativeView superview] addSubview: flutterViewController.view];
+        [nativeView addSubview: flutterViewController.view];
 //                                positioned: NSWindowBelow relativeTo: nil];
         [flutterViewController.view setFrame: [nativeView bounds]];
     }

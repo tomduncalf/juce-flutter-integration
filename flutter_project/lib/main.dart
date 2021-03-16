@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'native_integration.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -47,6 +49,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    initialise();
+  }
 
   void _incrementCounter() {
     setState(() {

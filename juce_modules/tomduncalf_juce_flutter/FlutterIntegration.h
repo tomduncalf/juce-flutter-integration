@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "../../libs/dart/dart_api_dl.h"
+
 class FlutterIntegration
 {
 public:
@@ -17,9 +19,12 @@ public:
     ~FlutterIntegration();
     
     void setupFlutterView (void* nativeView);
-    void resize ();
-    
+    void resize();
+    void sendMsgToFlutter (int64_t msg);
+
 private:
     class Pimpl;
     std::unique_ptr<Pimpl> pimpl;
+    
+//    std
 };
