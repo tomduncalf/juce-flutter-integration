@@ -9,11 +9,11 @@
 */
 
 // for ios, dart/ffi won't be able to access 'extern "C" functions' without those attributes due to compiler optimizations
-#if defined(_WIN32)
-#define EXTERN_C extern "C" __declspec(dllexport)
-#else
+//#if defined(_WIN32)
+//#define EXTERN_C extern "C" __declspec(dllexport)
+//#else
 #define EXTERN_C extern "C" __attribute__((visibility("default"))) __attribute__((used))
-#endif
+//#endif
 
 // Stores the ID of the port connection between C++ and Dart
 static int64_t DartApiMessagePort = -1;
@@ -26,9 +26,10 @@ EXTERN_C void SetDartApiMessagePort(int64_t port)
 
 // Initialise the Dart FFI API
 // DL indicates it is the dynamically linked version: https://github.com/mraleph/go_dart_ffi_example/blob/94f367bedce7bef4f67c8175b70a351ca6a04e04/dart_api_dl/include/dart_api_dl.h
-EXTERN_C int64_t InitializeDartApi(void *data)
+EXTERN_C int64_t InitializeDartApi(char* str, void* data)
 {
-  return Dart_InitializeApiDL(data);
+    DBG ("Dart process ID: " << juce::String (str));
+    return Dart_InitializeApiDL(data);
 };
 
 FlutterIntegration::FlutterIntegration() : pimpl (std::make_unique<Pimpl> ()) { }

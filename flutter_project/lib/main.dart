@@ -54,6 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initialise();
+
+    nativeCallbacks.add((x) {
+      setState(() {
+        _counter = x;
+      });
+    });
   }
 
   void _incrementCounter() {

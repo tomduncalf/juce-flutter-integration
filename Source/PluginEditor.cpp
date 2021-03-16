@@ -46,5 +46,6 @@ void JuceFlutterAudioProcessorEditor::resized()
 
 void JuceFlutterAudioProcessorEditor::timerCallback()
 {
-    flutter.sendMsgToFlutter (r.nextInt(100));
+    flutter.sendMsgToFlutter (count);
+    count++;
 }

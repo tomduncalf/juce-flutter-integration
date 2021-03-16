@@ -37,7 +37,7 @@ private:
     bool flutterSetupComplete = false;
     
     void timerCallback() override;
-    juce::Random r;
+    int count = 0;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterAudioProcessorEditor)
 };

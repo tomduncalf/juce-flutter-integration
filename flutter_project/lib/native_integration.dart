@@ -2,16 +2,23 @@ import 'dart:ffi'; // For FFI
 import 'dart:io'; // For Platform.isX
 import 'dart:isolate';
 
+import 'package:uuid/uuid.dart';
+import 'package:ffi/ffi.dart';
+
 // Based on https://github.com/audiooffler/JucyFluttering/
 
-typedef void Callback(List<dynamic> x);
+// typedef void Callback(List<dynamic> x);
+typedef void Callback(int x);
 var nativeCallbacks = List<Callback>();
 
 // Get a reference to the native part as a DynamicLibrary
 final DynamicLibrary nativeLib = Platform.isAndroid
     ? DynamicLibrary.open(
         "libnative_add.so") // this needs to match the app name I guess
-    : DynamicLibrary.process();
+    : DynamicLibrary.open(
+        "/Users/td/Library/Audio/Plug-Ins/Components/JuceFlutter.component/Contents/MacOS/JuceFlutter");
+
+final processId = Uuid().v4();
 
 // // Get a reference to a native function so we can call it from Dart
 // final int Function(int x, int y) nativeAdd = nativeLib
@@ -20,13 +27,19 @@ final DynamicLibrary nativeLib = Platform.isAndroid
 
 // Setup the connection between Dart and C++
 void initialise() {
-  final lib = DynamicLibrary.process();
+  print("nativeLib");
+  print(nativeLib);
+  print("processId $processId");
+
+  // final lib = DynamicLibrary.process();
 
   // This is some boilerplate to setup the FFI
-  final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
-      int Function(Pointer<Void>)>("InitializeDartApi");
+  final initializeApi = nativeLib.lookupFunction<
+      IntPtr Function(Pointer<Utf8>, Pointer<Void>),
+      int Function(Pointer<Utf8>, Pointer<Void>)>("InitializeDartApi");
 
-  if (initializeApi(NativeApi.initializeApiDLData) != 0) {
+  if (initializeApi(processId.toNativeUtf8(), NativeApi.initializeApiDLData) !=
+      0) {
     throw "Failed to initialize Dart API";
   }
 
@@ -39,7 +52,7 @@ void initialise() {
     });
   final int nativePort = interactiveCppRequests.sendPort.nativePort;
 
-  final void Function(int port) setDartApiMessagePort = lib
+  final void Function(int port) setDartApiMessagePort = nativeLib
       .lookup<NativeFunction<Void Function(Int64 port)>>(
           "SetDartApiMessagePort")
       .asFunction();
