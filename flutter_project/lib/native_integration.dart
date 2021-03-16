@@ -2,6 +2,7 @@ import 'dart:ffi'; // For FFI
 import 'dart:io'; // For Platform.isX
 import 'dart:isolate';
 
+import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 import 'package:ffi/ffi.dart';
 
@@ -20,13 +21,21 @@ final DynamicLibrary nativeLib = Platform.isAndroid
 
 final processId = Uuid().v4();
 
+// ServicesBinding.defaultBinaryMessenger().setMessageHandler("foo", );
+
 // // Get a reference to a native function so we can call it from Dart
 // final int Function(int x, int y) nativeAdd = nativeLib
 //     .lookup<NativeFunction<Int32 Function(Int32, Int32)>>("native_add")
 //     .asFunction();
 
+const channel = const MethodChannel('startup');
+
 // Setup the connection between Dart and C++
 void initialise() {
+  channel.setMethodCallHandler(
+      (call) async => print("METHOD CALL " + call.arguments));
+  channel.invokeMethod("startup");
+
   print("nativeLib");
   print(nativeLib);
   print("processId $processId");

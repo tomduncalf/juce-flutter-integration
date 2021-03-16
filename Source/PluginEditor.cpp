@@ -12,8 +12,8 @@
 #include <juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h>
 
 //==============================================================================
-JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor& p, FlutterIntegration& f)
-    : AudioProcessorEditor (&p), audioProcessor (p), flutter (f)
+JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor& p, FlutterIntegration& f, juce::Uuid& u)
+    : AudioProcessorEditor (&p), audioProcessor (p), flutter (f), instanceUuid(u)
 {
     // To use this in standalone plugin build, change line 82 of juce_StandaloneFilterApp.cpp
     // from `LookAndFeel::getDefaultLookAndFeel().findColour (ResizableWindow::backgroundColourId),`
@@ -33,7 +33,7 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 {
     if (flutterSetupComplete) return;
 
-    flutter.setupFlutterView (getWindowHandle());
+    flutter.setupFlutterView (getWindowHandle(), instanceUuid);
     flutterSetupComplete = true;
     
     startTimerHz (1);

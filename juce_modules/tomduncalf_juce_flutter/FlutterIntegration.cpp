@@ -36,9 +36,9 @@ FlutterIntegration::FlutterIntegration() : pimpl (std::make_unique<Pimpl> ()) { 
 
 FlutterIntegration::~FlutterIntegration() = default;
 
-void FlutterIntegration::setupFlutterView (void* nativeView)
+void FlutterIntegration::setupFlutterView (void* nativeView, juce::Uuid uuid)
 {
-    pimpl->setupFlutterView (nativeView);
+    pimpl->setupFlutterView (nativeView, uuid.toString().toStdString());
 }
 
 void FlutterIntegration::resize()

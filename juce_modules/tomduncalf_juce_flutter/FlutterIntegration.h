@@ -18,7 +18,7 @@ public:
     FlutterIntegration();
     ~FlutterIntegration();
     
-    void setupFlutterView (void* nativeView);
+    void setupFlutterView (void* nativeView, juce::Uuid uuid);
     void resize();
     void sendMsgToFlutter (int64_t msg);
 

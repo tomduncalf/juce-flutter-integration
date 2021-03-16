@@ -166,7 +166,7 @@ bool JuceFlutterAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* JuceFlutterAudioProcessor::createEditor()
 {
-    return new JuceFlutterAudioProcessorEditor (*this, flutter);
+    return new JuceFlutterAudioProcessorEditor (*this, flutter, instanceUuid);
 }
 
 //==============================================================================

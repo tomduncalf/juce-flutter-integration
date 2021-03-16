@@ -17,7 +17,7 @@
 class FlutterIntegration::Pimpl
 {
 public:
-    void setupFlutterView (void* windowHandle)
+    void setupFlutterView (void* windowHandle, std::string instanceUuid)
     {
     #if JUCE_IOS
         nativeView = (UIView*) windowHandle;
@@ -26,6 +26,15 @@ public:
     #endif
         
         flutterViewController = [FlutterViewController new];
+        NSString* message = @"hello";
+//        [[[flutterViewController engine] binaryMessenger] sendOnChannel:@"initChannel" message: [message dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        FlutterMethodChannel* startupChannel = [FlutterMethodChannel methodChannelWithName:@"startup" binaryMessenger:[[flutterViewController engine] binaryMessenger]];
+
+        [startupChannel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
+            [startupChannel invokeMethod:@"setNativeUuid" arguments: [NSString stringWithUTF8String: instanceUuid.c_str()]];
+        }];
+        
         // Place the Flutter view below the (transparent) JUCE component view
         // so that we can use the JUCE corner resizer widget
         [nativeView addSubview: flutterViewController.view];

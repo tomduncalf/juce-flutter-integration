@@ -20,7 +20,7 @@ class JuceFlutterAudioProcessorEditor  : public juce::AudioProcessorEditor,
 public juce::Timer
 {
 public:
-    JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor&, FlutterIntegration&);
+    JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor&, FlutterIntegration&, juce::Uuid&);
     ~JuceFlutterAudioProcessorEditor() override;
 
     //==============================================================================
@@ -35,7 +35,9 @@ private:
     FlutterIntegration& flutter;
     
     bool flutterSetupComplete = false;
-    
+
+    juce::Uuid& instanceUuid;
+
     void timerCallback() override;
     int count = 0;
     
