@@ -15,16 +15,20 @@
 class FlutterIntegration
 {
 public:
-    FlutterIntegration();
+    // TODO pass uuid by ref or value?
+    FlutterIntegration (juce::Uuid u);
     ~FlutterIntegration();
     
-    void setupFlutterView (void* nativeView, juce::Uuid uuid);
+    void setupFlutterView (void* nativeView);
     void resize();
     void sendMsgToFlutter (int64_t msg);
+    
+    void setDartMessagePort (int64_t port);
 
 private:
     class Pimpl;
     std::unique_ptr<Pimpl> pimpl;
     
-//    std
+    juce::Uuid instanceUuid;
+    int64_t dartMessagePort;
 };

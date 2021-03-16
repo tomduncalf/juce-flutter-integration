@@ -26,12 +26,13 @@ public:
     #endif
         
         flutterViewController = [FlutterViewController new];
-        NSString* message = @"hello";
-//        [[[flutterViewController engine] binaryMessenger] sendOnChannel:@"initChannel" message: [message dataUsingEncoding:NSUTF8StringEncoding]];
         
+        // Pass the current plugin instance's UUID to Flutter so we can link up the Flutter engine instance
+        // with the current plugin instance
         FlutterMethodChannel* startupChannel = [FlutterMethodChannel methodChannelWithName:@"startup" binaryMessenger:[[flutterViewController engine] binaryMessenger]];
 
-        [startupChannel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
+        // Flutter calls into this channel when it starts up, and we respond with our UUID
+        [startupChannel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult _Nonnull result) {
             [startupChannel invokeMethod:@"setNativeUuid" arguments: [NSString stringWithUTF8String: instanceUuid.c_str()]];
         }];
         

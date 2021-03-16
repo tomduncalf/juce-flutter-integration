@@ -12,6 +12,7 @@
 #include <juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h>
 
 //==============================================================================
+// TODO does this need instanceUUid?
 JuceFlutterAudioProcessorEditor::JuceFlutterAudioProcessorEditor (JuceFlutterAudioProcessor& p, FlutterIntegration& f, juce::Uuid& u)
     : AudioProcessorEditor (&p), audioProcessor (p), flutter (f), instanceUuid(u)
 {
@@ -33,7 +34,7 @@ void JuceFlutterAudioProcessorEditor::paint (juce::Graphics& g)
 {
     if (flutterSetupComplete) return;
 
-    flutter.setupFlutterView (getWindowHandle(), instanceUuid);
+    flutter.setupFlutterView (getWindowHandle());
     flutterSetupComplete = true;
     
     startTimerHz (1);

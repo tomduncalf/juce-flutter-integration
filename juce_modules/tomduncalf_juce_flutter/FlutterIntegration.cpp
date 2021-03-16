@@ -9,19 +9,22 @@
 */
 
 // for ios, dart/ffi won't be able to access 'extern "C" functions' without those attributes due to compiler optimizations
-//#if defined(_WIN32)
-//#define EXTERN_C extern "C" __declspec(dllexport)
-//#else
+#if defined(_WIN32)
+#define EXTERN_C extern "C" __declspec(dllexport)
+#else
 #define EXTERN_C extern "C" __attribute__((visibility("default"))) __attribute__((used))
-//#endif
+#endif
 
-// Stores the ID of the port connection between C++ and Dart
-static int64_t DartApiMessagePort = -1;
+// TODO smart ptr
+static std::map<juce::String, FlutterIntegration*> flutterInstances;
 
 // Register the Dart API message part with C++
-EXTERN_C void SetDartApiMessagePort(int64_t port)
+EXTERN_C void SetDartApiMessagePort(char* uuid, int64_t port)
 {
-  DartApiMessagePort = port;
+    auto uuidString = juce::String (uuid);
+    DBG ("UUID STRING " + uuidString);
+    auto& instance = flutterInstances[uuidString];
+    instance->setDartMessagePort (port);
 };
 
 // Initialise the Dart FFI API
@@ -32,13 +35,17 @@ EXTERN_C int64_t InitializeDartApi(char* str, void* data)
     return Dart_InitializeApiDL(data);
 };
 
-FlutterIntegration::FlutterIntegration() : pimpl (std::make_unique<Pimpl> ()) { }
+FlutterIntegration::FlutterIntegration (juce::Uuid u) : pimpl (std::make_unique<Pimpl> ()), instanceUuid (u)
+{
+    DBG("FlutterIntegration UUID " + u.toString());
+    flutterInstances[u.toString()] = this;
+}
 
 FlutterIntegration::~FlutterIntegration() = default;
 
-void FlutterIntegration::setupFlutterView (void* nativeView, juce::Uuid uuid)
+void FlutterIntegration::setupFlutterView (void* nativeView)
 {
-    pimpl->setupFlutterView (nativeView, uuid.toString().toStdString());
+    pimpl->setupFlutterView (nativeView, instanceUuid.toString().toStdString());
 }
 
 void FlutterIntegration::resize()
@@ -48,11 +55,16 @@ void FlutterIntegration::resize()
 
 void FlutterIntegration::sendMsgToFlutter (int64_t msg)
 {
-    if (DartApiMessagePort == -1)
+    if (dartMessagePort == -1)
         return;
     
     Dart_CObject obj;
     obj.type = Dart_CObject_kInt64;
     obj.value.as_int64 = msg;
-  Dart_PostCObject_DL(DartApiMessagePort, &obj);
+    Dart_PostCObject_DL (dartMessagePort, &obj);
+}
+
+void FlutterIntegration::setDartMessagePort (int64_t port)
+{
+    dartMessagePort = port;
 }

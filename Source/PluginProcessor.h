@@ -58,8 +58,8 @@ public:
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFlutterAudioProcessor)
-
-    FlutterIntegration flutter;
     
     juce::Uuid instanceUuid;
+    
+    FlutterIntegration flutter;
 };

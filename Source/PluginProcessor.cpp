@@ -19,7 +19,8 @@ JuceFlutterAudioProcessor::JuceFlutterAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+       flutter (instanceUuid)
 #endif
 {
 }

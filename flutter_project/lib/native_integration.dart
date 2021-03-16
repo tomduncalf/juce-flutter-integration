@@ -19,7 +19,7 @@ final DynamicLibrary nativeLib = Platform.isAndroid
     : DynamicLibrary.open(
         "/Users/td/Library/Audio/Plug-Ins/Components/JuceFlutter.component/Contents/MacOS/JuceFlutter");
 
-final processId = Uuid().v4();
+String instanceId;
 
 // ServicesBinding.defaultBinaryMessenger().setMessageHandler("foo", );
 
@@ -32,25 +32,10 @@ const channel = const MethodChannel('startup');
 
 // Setup the connection between Dart and C++
 void initialise() {
-  channel.setMethodCallHandler(
-      (call) async => print("METHOD CALL " + call.arguments));
-  channel.invokeMethod("startup");
-
-  print("nativeLib");
-  print(nativeLib);
-  print("processId $processId");
-
-  // final lib = DynamicLibrary.process();
-
   // This is some boilerplate to setup the FFI
   final initializeApi = nativeLib.lookupFunction<
       IntPtr Function(Pointer<Utf8>, Pointer<Void>),
       int Function(Pointer<Utf8>, Pointer<Void>)>("InitializeDartApi");
-
-  if (initializeApi(processId.toNativeUtf8(), NativeApi.initializeApiDLData) !=
-      0) {
-    throw "Failed to initialize Dart API";
-  }
 
   final interactiveCppRequests = ReceivePort()
     ..listen((data) {
@@ -61,12 +46,27 @@ void initialise() {
     });
   final int nativePort = interactiveCppRequests.sendPort.nativePort;
 
-  final void Function(int port) setDartApiMessagePort = nativeLib
-      .lookup<NativeFunction<Void Function(Int64 port)>>(
+  final void Function(
+      Pointer<Utf8> uuid,
+      int
+          port) setDartApiMessagePort = nativeLib
+      .lookup<NativeFunction<Void Function(Pointer<Utf8> uuid, Int64 port)>>(
           "SetDartApiMessagePort")
       .asFunction();
 
-  setDartApiMessagePort(nativePort);
+  channel.setMethodCallHandler((call) async {
+    print("METHOD CALL " + call.arguments);
+    instanceId = call.arguments; // lol
+
+    if (initializeApi(
+            instanceId.toNativeUtf8(), NativeApi.initializeApiDLData) !=
+        0) {
+      throw "Failed to initialize Dart API";
+    }
+
+    setDartApiMessagePort(instanceId.toNativeUtf8(), nativePort);
+  });
+  channel.invokeMethod("startup");
 
   print("Native integrationnitialised");
 }
